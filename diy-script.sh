@@ -1,7 +1,11 @@
 #!/bin/bash
 
-# 修改默认IP
-# sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
+# Modify default IP
+sed -i 's/192.168.1.1/192.168.6.1/g' package/base-files/files/bin/config_generate
+#更换lede源码中自带argon主题
+rm -rf feeds/luci/themes/luci-theme-argon && git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon 
+# 替换默认主题为 luci-theme-argon
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/' feeds/luci/collections/luci/Makefile
 
 # 更改默认 Shell 为 zsh
 # sed -i 's/\/bin\/ash/\/usr\/bin\/zsh/g' package/base-files/files/etc/passwd
@@ -32,7 +36,7 @@ svn export https://github.com/immortalwrt/luci/branches/openwrt-18.06/applicatio
 # svn export https://github.com/syb999/openwrt-19.07.1/trunk/package/network/services/msd_lite package/msd_lite
 
 # 科学上网插件
-git clone --depth=1 -b main https://github.com/fw876/helloworld package/luci-app-ssr-plus
+git clone --depth=1 -b main https://github.com/fichenx/openwrt-package package/luci-app-ssr-plus
 svn export https://github.com/haiibo/packages/trunk/luci-app-vssr package/luci-app-vssr
 git clone --depth=1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
 git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
